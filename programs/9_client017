@@ -1,0 +1,28 @@
+import java.util.Scanner;
+import java.io.*;
+import java.net.*;
+public class client017
+{  public static void main(String args[])
+   {  Socket s;
+      while(true)
+      {  try
+         {  s=new Socket("172.16.2.95",3000);
+            OutputStream ostream=s.getOutputStream();
+            System.out.println("enter filename");
+            Scanner input=new Scanner(System.in);
+            String fname=input.nextLine();
+            PrintWriter pwrite=new PrintWriter(ostream,true);
+            pwrite.println(fname);
+            InputStream istream=s.getInputStream();
+            Scanner cRead=new Scanner(new InputStreamReader(istream));
+            while(cRead.hasNext())
+            System.out.println(cRead.nextLine());
+            pwrite.close();
+            s.close();
+         }
+         catch(Exception e)
+         { e.printStackTrace();
+         }
+      }
+    }
+}
